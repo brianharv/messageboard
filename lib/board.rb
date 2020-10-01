@@ -1,3 +1,4 @@
+require 'pry'
 class Board
   attr_reader(:title, :id)
 
@@ -30,8 +31,10 @@ class Board
     @@total_rows = 0  
   end
 
-  def self.sort_board_by_name
-    @@boards.values.sort_by(&:title)  # {|board| board.name}
+  def self.sort_board_by_name()
+    @@boards.values.sort_by(&:title.downcase)
+    # {|title| title.downcase}
+    # binding.pry
   end  
 end  
 

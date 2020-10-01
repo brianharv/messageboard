@@ -6,12 +6,12 @@ require('./lib/message')
 also_reload('lib/**/*.rb')
 
 get('/') do
-  @boards = Board.all
+  @boards = Board.all()
   erb(:boards)
 end
 
 get('/boards') do
-  @boards = Board.all.sort #REMEMBER
+  @boards = Board.all
   erb(:boards)
 end
 
@@ -19,7 +19,7 @@ post('/boards') do
   title = params[:title_name]
   board = Board.new(:title => title, :id => nil)
   board.save()
-  @boards = Board.all()
+  @boards = Board.all
   erb(:boards)
   #redirect to('/boards')
 end
