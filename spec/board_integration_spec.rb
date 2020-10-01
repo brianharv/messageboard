@@ -24,12 +24,12 @@ describe '#Board' do
   end
 
   describe('create a board path', {:type => :feature}) do
-    it('creates a board and the goest to the new board page') do
+    it('creates a board and then goes to the new board page') do
       visit('/boards')
       click_on('Add a new board')
-      fill_in('title_name', :with => 'Robots')
+      fill_in('title_name', :with => 'Ponies')
       click_on('Make a new board')
-      expect(page).to have_content('Robots')
+      expect(page).to have_content('Ponies')
     end
   end
 end

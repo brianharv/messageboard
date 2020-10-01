@@ -17,7 +17,8 @@ end
 
 post('/boards') do
   title = params[:title_name]
-  board = Board.new(:title => title, :id => nil)
+  description = params[:board_description]
+  board = Board.new(:title => title, :id => nil, :description => description)
   board.save()
   @boards = Board.all
   erb(:boards)
@@ -32,3 +33,16 @@ get('/boards/:id') do #this route will take us to board. We are passing ID into 
   @board = Board.find(params[:id].to_i)
   erb(:board)
 end
+
+get('/boards/:id/edit') do
+  @board = Board.find(params[:id].to_i)
+  erb(:edit_board)
+end
+
+patch('/boards/:id') do
+  @board = Board.find(params[:id].to_i)
+  @board.update(params[:title_rename], params[:new_description])
+  erb(:board)
+end
+
+

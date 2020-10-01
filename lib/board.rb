@@ -1,6 +1,6 @@
 require 'pry'
 class Board
-  attr_reader(:title, :id)
+  attr_reader(:title, :id, :description)
 
   @@boards = {}
   @@total_rows = 0
@@ -8,6 +8,7 @@ class Board
   def initialize(attributes)
     @title = attributes.fetch(:title)
     @id = attributes.fetch(:id) || @@total_rows += 1
+    @description = attributes.fetch(:description)
   end  
 
   def self.all
@@ -15,7 +16,7 @@ class Board
   end    
     
   def save
-    @@boards[id] = Board.new({:title => self.title, :id => self.id})  
+    @@boards[id] = Board.new({:title => self.title, :id => self.id, :description => self.description})  
   end
 
   def ==(board_to_compare)
@@ -35,6 +36,19 @@ class Board
     @@boards.values.sort_by(&:title.downcase)
     # {|title| title.downcase}
     # binding.pry
-  end  
+  end
+
+  def update(title, description)
+    @title = title
+    @description = description
+  end
+
+  def delete
+    @@boards.delete(self.id)
+  end
+
+  def messages 
+    Message.find_by_board(self.id)
+  end
 end  
 
