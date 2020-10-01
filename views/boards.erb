@@ -1,0 +1,15 @@
+<h1>Thoughts & Robots - a philosophical community</h1>
+<h3>Check out our forums below</h3>
+
+<% if @boards.any? %>
+  <ul>
+    <% @boards.each do | board | %>
+      <li><a href="/boards/<%= board.id %>"><%= board.name %></a></li>
+    <% end %>
+  </ul>
+  <% else %>
+   <p> There are currently no boards, click below to start a discussion. </p>
+  <% end %>
+
+  <a href="boards/new">Add a new board</a>
+

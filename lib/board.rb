@@ -29,5 +29,9 @@ class Board
     @@boards = {}
     @@total_rows = 0  
   end
+
+  def self.sort_board_by_name
+    @@boards.values.sort_by(&:title)  # {|board| board.name}
+  end  
 end  
 

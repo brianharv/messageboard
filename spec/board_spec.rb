@@ -49,8 +49,8 @@ describe('#Board') do
     it('clears all baords') do
       board = Board.new({:title => 'Thoughts', :id => nil})
       board.save()
-      bboard2 = Board.new({:title => 'Robots', :id => nil})
-      board.save()
+      board2 = Board.new({:title => 'Robots', :id => nil})
+      board2.save()
       Board.clear()
       expect(Board.all).to(eq([]))
     end
@@ -60,8 +60,19 @@ describe('#Board') do
     it('finds specific board from its ID') do
       board = Board.new({:title => 'Thoughts', :id => nil})
       board.save()
-      # board.find()
       expect(Board.find(board.id)).to(eq(board))
     end  
+  end
+
+  describe('.sort_board_by_name') do
+    it('sorts boards alphabetically') do
+      board = Board.new({:title => 'Thoughts', :id => nil})
+      board.save()
+      board2 = Board.new({:title => 'Robots', :id => nil})
+      board2.save()
+      board3 = Board.new({:title => 'Warm Cots', :id => nil})
+      board3.save()
+      expect(Board.sort_board_by_name).to(eq([board2, board, board3]))
+    end
   end
 end
