@@ -27,3 +27,8 @@ end
 get('/boards/new') do
   erb(:new_board)
 end
+
+get('/boards/:id') do #this route will take us to board. We are passing ID into URL
+  @board = Board.find(params[:id].to_i)
+  erb(:board)
+end
