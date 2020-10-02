@@ -1,6 +1,19 @@
 <h3>Board Name: <%= @board.title %></h3>
 <p>Board Description:<%= @board.description%></p>
 
-<p><a href="/boards/<%= @board.id %>/edit">Edit Board</a></p>
 
-<p><a href="/boards">Back to Boards</a></p>
+<% if @message.any? %>
+  <ul>
+    <% @message.each do | message | %>
+      <li><strong><a href="/boards/<%= message.id %>"><%= message.title %></a></strong><hr><em><%= message.body %></em></li>
+    <% end %>
+  </ul>
+  <% else %>
+   <p> There are currently no messages, click below to start a discussion. </p>
+  <% end %>
+
+
+ link add message
+<p><a href="/boards/<%= @message.message_id %>/edit">Edit message</a></p>
+
+<%# <p><a href="/boards/:id/messages">Back to messages</a></p> %>

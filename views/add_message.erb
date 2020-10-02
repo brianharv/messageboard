@@ -1,0 +1,18 @@
+<h3> Replying to: <%= @board.title%> </h3>
+
+<h4> Description: <%=@board.description %> </h4>
+
+<form action="/boards/:id/message/<%=@message.id() %>" method="post">
+  <input name="_method" type="hidden" value="post">
+
+  <label for="message_title">Message Title</label>
+  <input id="message_title" name="message_title" class="form-control" type="text">
+
+  <label for="message_body">Message Body:</label>
+  <textarea id="message_body" name="message_body" rows="10" cols="100">
+
+  </textarea>
+  <button type="submit"> Add Message</button>
+</form>  
+
+<p><a href="/boards/"> Return to Board</a></p>

@@ -1,14 +1,16 @@
 require 'pry'
 class Message
-  attr_reader(:title, :id, :body)
+  attr_reader(:title, :message_id, :body)
+  attr_accessor :board_id
 
   @@messages = {}
   @@total_rows = 0
 
   def initialize(attributes)
     @title = attributes.fetch(:title)
-    @id = attributes.fetch(:id) || @@total_rows += 1
+    @message_id = attributes.fetch(:message_id) || @@total_rows += 1
     @body = attributes.fetch(:body)
+    @board_id = attributes.fetch(:board_id)
   end  
 
   def self.all
@@ -16,7 +18,7 @@ class Message
   end    
     
   def save
-    @@messages[id] = Message.new({:title => self.title, :id => self.id, :body => self.body})  
+    @@messages[self.message_id] = Message.new({:title => self.title, :message_id => self.message_id, :body => self.body, :board_id => self.board_id})  
   end
 
   def ==(message_to_compare)
@@ -42,13 +44,13 @@ class Message
   end
 
   def delete
-    @@messages.delete(self.id)
+    @@messages.delete(self.message_id)
   end
 
-  def self.find_by_board(id)
+  def self.find_by_board(brd_id)
     messages = []
     @@messages.values.each do |message|
-      if message.id == id
+      if message.board_id == brd_id
         messages.push(message)
       end
     end
@@ -56,6 +58,6 @@ class Message
   end
 
   def board
-    Board.find(self.id)
+    Board.find(self.board_id)
   end
 end  

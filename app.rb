@@ -22,7 +22,6 @@ post('/boards') do
   board.save()
   @boards = Board.all
   erb(:boards)
-  #redirect to('/boards')
 end
 
 get('/boards/new') do
@@ -31,6 +30,9 @@ end
 
 get('/boards/:id') do #this route will take us to board. We are passing ID into URL
   @board = Board.find(params[:id].to_i)
+  # message = Message.new(:title => nil, :id => nil, :body => nil)
+  # message.save()
+  # @messages = Message.all
   erb(:board)
 end
 
@@ -45,4 +47,12 @@ patch('/boards/:id') do
   erb(:board)
 end
 
+## Messages
 
+post('/boards/:id/message') do
+  @board = Board.find(params[:id].to_i)
+  message = Message.new({:title => params[:message_title], :message_id => nil, :body => params[:message_body], :board_id => @board.id})
+  message.save()
+  # @messages = Message.all()
+  erb(:board)
+end
